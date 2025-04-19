@@ -1,19 +1,19 @@
-from class import Aerolinea, Pasajero, Vuelo, Tiquete, Bicicleta, Mascota, PasajeroEconomico
-from cargaespecial import CargaEspecial
-
+from Aerolinea import Aerolinea
+from Pasajero import Pasajero, PasajeroEconomico, PasajeroEjecutivo, PasajeroPremium
+from Vuelo import Vuelo
+from Tiquete import Tiquete
+from CargaEspecial import Bicicleta, Mascota
 
 
 
 
 def main():
-   
-    Aerolinea = Aerolinea()
-    Pasajero = Pasajero()
-    Vuelo = Vuelo() 
-    Tiquete = Tiquete()
-    Bicicleta = Bicicleta()
-    Mascota = Mascota()
-    PasajeroEconomico = PasajeroEconomico()
+    aerolinea = Aerolinea()
+
+    
+    
+
+    
 
     while True:
         print("\n--- MENÚ PRINCIPAL ---")
@@ -29,19 +29,20 @@ def main():
         if opcion == "1":
             origen = input("Ciudad de origen: ")
             destino = input("Ciudad de destino: ")
-            Aerolinea.crear_vuelo(origen, destino)
+            aerolinea.crear_vuelo(origen, destino)
             print("Vuelo creado con éxito.")
+            
 
         elif opcion == "2":
-            if not Aerolinea.vuelos:
+            if not aerolinea.vuelos:
                 print("No hay vuelos disponibles.")
                 continue
             print("Vuelos disponibles:")
-            for i, vuelo in enumerate(Aerolinea.vuelos):
+            for i, vuelo in enumerate(aerolinea.vuelos):
                 print(f"{i+1}. {vuelo.origen} -> {vuelo.destino}")
             try:
                 index = int(input("Seleccione el número de vuelo: ")) - 1
-                vuelo = Aerolinea.vuelos[index]
+                vuelo = aerolinea.vuelos[index]
                 nombre = input("Nombre del pasajero: ")
                 edad = int(input("Edad del pasajero: "))
                 genero = input("Género (masculino/femenino): ")
@@ -68,14 +69,14 @@ def main():
                 print("Error:", e)
 
         elif opcion == "3":
-            if not Aerolinea.vuelos:
+            if not aerolinea.vuelos:
                 print("No hay vuelos.")
                 continue
-            for i, vuelo in enumerate(Aerolinea.vuelos):
+            for i, vuelo in enumerate(aerolinea.vuelos):
                 print(f"{i+1}. {vuelo.origen} -> {vuelo.destino}")
             try:
                 index = int(input("Seleccione el número de vuelo: ")) - 1
-                vuelo = Aerolinea.vuelos[index]
+                vuelo = aerolinea.vuelos[index]
                 if not vuelo.tiquetes:
                     print("No hay tiquetes vendidos para este vuelo.")
                     continue
@@ -90,14 +91,14 @@ def main():
                 print("Error:", e)
 
         elif opcion == "4":
-            if not Aerolinea.vuelos:
+            if not aerolinea.vuelos:
                 print("No hay vuelos.")
                 continue
-            for i, vuelo in enumerate(Aerolinea.vuelos):
+            for i, vuelo in enumerate(aerolinea.vuelos):
                 print(f"{i+1}. {vuelo.origen} -> {vuelo.destino}")
             try:
                 index = int(input("Seleccione el número de vuelo: ")) - 1
-                vuelo = Aerolinea.vuelos[index]
+                vuelo = aerolinea.vuelos[index]
                 if not vuelo.tiquetes:
                     print("No hay tiquetes para devolver.")
                     continue
@@ -111,28 +112,30 @@ def main():
 
         elif opcion == "5":
             print("--- ESTADÍSTICAS ---")
-            t = Aerolinea.trayecto_mayor_recaudo()
+            t = aerolinea.trayecto_mayor_recaudo()
             if t:
                 print(f"Trayecto con mayor recaudo: {t[0]} -> {t[1]}, Total: {t[2]}")
             else:
                 print("No hay trayectos registrados.")
             destino = input("Destino para análisis de género: ")
-            print("Viajan más:", Aerolinea.quienes_viajan_mas(destino))
+            print("Viajan más:", aerolinea.quienes_viajan_mas(destino))
             o = input("Origen para promedio: ")
             d = input("Destino para promedio: ")
-            print("Costo promedio tiquete:", Aerolinea.costo_promedio_tiquete(o, d))
-            print("Recaudo total por tiquetes:", Aerolinea.recaudo_total_tiquetes())
-            print("Recaudo total por equipaje/cargas especiales:", Aerolinea.recaudo_total_equipaje())
-
+            print("Costo promedio tiquete:", aerolinea.costo_promedio_tiquete(o, d))
+            print("Recaudo total por tiquetes:", aerolinea.recaudo_total_tiquetes())
+            print("Recaudo total por equipaje/cargas especiales:", aerolinea.recaudo_total_equipaje())
+        
         elif opcion == "6":
-            print("Saliendo del sistema...")
-            break
+                print("Saliendo del sistema...")
+                break
+        
+       
 
         else:
             print("Opción inválida. Intente nuevamente.")
 
-if __name__ == "__main__":
-    main()
+
+main()
 
 
 

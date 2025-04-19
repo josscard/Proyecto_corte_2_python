@@ -21,6 +21,18 @@ class Vuelo:
         self.tiquetes.append(tiquete)
         return tiquete
 
+    def eliminar_vuelo(self, vuelos, vuelo_a_eliminar):
+        if vuelo_a_eliminar in vuelos:
+            vuelos.remove(vuelo_a_eliminar)
+            vuelo_a_eliminar.tiquetes.clear()
+            vuelo_a_eliminar.origen = None
+            vuelo_a_eliminar.destino = None
+        else:
+            raise ValueError("El vuelo especificado no existe en la lista de vuelos")
+        self.tiquetes.clear()
+        self.origen = None
+        self.destino = None
+        
     def devolver_tiquete(self, tiquete):
         if tiquete in self.tiquetes:
             self.tiquetes.remove(tiquete)
@@ -39,3 +51,5 @@ class Vuelo:
             total += t.pasajero.calcular_exceso_equipaje(0)
             total += sum([carga.calcular_costo(t.valor_total) for carga in t.pasajero.cargas_especiales])
         return total
+    
+    
